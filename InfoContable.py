@@ -10,11 +10,23 @@ st.set_page_config(page_title="Buscador Legal", layout="centered")
 st.title("📘 InfoContable")
 
 # Barra lateral para buscar por palabra clave
-with st.sidebar:
-    st.header("🔍 Búsqueda por palabra")
-    palabra = st.text_input("Escribe una palabra clave (por ejemplo: inmueble, renta, etc.)")
-    buscar = st.button("Buscar")
-    limpiar = st.button("Limpiar")
+# Encabezado y autor
+st.markdown("*Desarrollado por Sandra Castillo Muñoz*")
+st.markdown("### 🔍 Buscar por palabra clave")
+
+
+# Búsqueda superior
+col1, col2, col3 = st.columns([4, 1, 1])
+with col1:
+    palabra = st.text_input("Palabra clave (ej: inmueble, renta...)", key="palabra")
+with col2:
+    buscar = st.button("Buscar", use_container_width=True)
+with col3:
+    limpiar = st.button("Limpiar", use_container_width=True)
+
+# Acción para limpiar búsqueda
+if limpiar:
+    st.rerun()
 
 # Menú desplegable por ley
 st.subheader("📚  ¿Qué ley estás buscando?")
@@ -47,4 +59,4 @@ if buscar and palabra:
                 st.markdown(row["Descripcion"])
 # Acción para limpiar búsqueda
 if limpiar:
-    st.experimental_rerun()
+    st.rerun()
