@@ -43,10 +43,8 @@ if buscar and palabra:
         st.info("No se encontraron artículos con esa palabra.")
     else:
         for _, row in resultados.iterrows():
-            st.markdown(f"**{row['Ley']} - Art. {row['Articulo']}**")
-            st.markdown(f"> {row['Descripcion']}")
-            st.markdown("---")
-
+            with st.expander(f"{row['Ley']} - Art. {row['Articulo']}"):
+                st.markdown(row["Descripcion"])
 # Acción para limpiar búsqueda
 if limpiar:
     st.experimental_rerun()
