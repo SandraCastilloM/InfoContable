@@ -54,9 +54,21 @@ if buscar and palabra:
     if resultados.empty:
         st.info("No se encontraron artículos con esa palabra.")
     else:
-        for _, row in resultados.iterrows():
-            with st.expander(f"{row['Ley']} - Art. {row['Articulo']}"):
-                st.markdown(row["Descripcion"])
+        import re
+
+    for i, row in resultados.iterrows():
+        texto = row["Descripcion"]
+        if palabra:
+            # Resaltar palabra buscada (respetando mayúsculas/minúsculas)
+            texto = re.sub(
+                f"({re.escape(palabra)})",
+                r"<span style='background-color: yellow; font-weight: bold;'>\1</span>",
+                texto,
+                flags=re.IGNORECASE
+            )
+        with st.expander(f"Resultado {i+1}: {row['Ley']} - Art. {row['Articulo']}"):
+            st.markdown(texto, unsafe_allow_html=True)
+
 # Acción para limpiar búsqueda
 if limpiar:
     st.rerun()
